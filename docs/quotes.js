@@ -1,13 +1,13 @@
 const numberOfQuotes = 50;
 
-const supabase = supabase.createClient(
+const supabaseClient = supabase.createClient(
     'https://ltelhtkzlonffgpkymjp.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0ZWxodGt6bG9uZmZncGt5bWpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MDkxODUsImV4cCI6MjA3MDQ4NTE4NX0.QUCjvnJPd6IbaalQTn8hhAxi31l-GHX2uqHfXlZaR84'
 )
 
 async function getQuote() {
     const quoteId = Math.floor(Math.random()*numberOfQuotes)
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('quotes')
         .select('*')
         .eq('id', quoteId)
