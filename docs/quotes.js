@@ -73,9 +73,21 @@ async function newQuote() {
     }, 300);
 }
 
+async function initPromo() {
+// Initialize the promo banner close button
+    const promoBanner = document.getElementById('promo-banner');
+    const closePromoBtn = document.getElementById('close-promo-btn');
+
+    if (promoBanner && closePromoBtn) {
+        closePromoBtn.addEventListener('click', () => {
+            promoBanner.style.display = 'none';
+        });
+    }
+}
 
 // Load quote when page loads
 document.addEventListener('DOMContentLoaded', newQuote);
+document.addEventListener('DOMContentLoaded', initPromo);
 
 // Add click handler to button
 document.getElementById('new-quote-btn').addEventListener('click', newQuote);
