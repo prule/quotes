@@ -1,25 +1,9 @@
-const numberOfQuotes = 50;
-
-const supabaseClient = supabase.createClient(
-    'https://ltelhtkzlonffgpkymjp.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0ZWxodGt6bG9uZmZncGt5bWpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MDkxODUsImV4cCI6MjA3MDQ4NTE4NX0.QUCjvnJPd6IbaalQTn8hhAxi31l-GHX2uqHfXlZaR84'
-)
 
 async function getQuote() {
-    const quoteId = Math.floor(Math.random()*numberOfQuotes)
-    const { data, error } = await supabaseClient
-        .from('quotes')
-        .select('*')
-        .eq('id', quoteId)
-        .single()  // Returns single object instead of array
-
-    if (error) {
-        console.error('Error loading quote:', error)
-        return null
-    }
-
-    return data
-
+    const response = await fetch('quotes.json');
+    const quotes = await response.json();
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    return quotes[randomIndex];
 }
 
 async function updateQuote(quote) {
