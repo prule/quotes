@@ -6,6 +6,13 @@ async function getQuote() {
     return quotes[randomIndex];
 }
 
+async function getPost() {
+    const response = await fetch('posts.json');
+    const posts = await response.json();
+    const randomIndex = Math.floor(Math.random() * posts.length);
+    return posts[randomIndex];
+}
+
 async function updateQuote(quote) {
     const quoteContainer = document.getElementById('quote-text');
     const quoteAuthor = document.getElementById('quote-author');
@@ -57,6 +64,32 @@ async function newQuote() {
     }, 300);
 }
 
+async function showPost() {
+    const post = await getPost();
+    const postContent = document.getElementById('post-content');
+    const postContainer = document.getElementById('post-container');
+    const mainContainer = document.querySelector('.container');
+
+    postContent.innerHTML = `
+        <blockquote class="instagram-media" data-instgrm-permalink="${post.url}" data-instgrm-version="14"></blockquote>
+    `;
+
+    // This function is part of the Instagram embed script and will render the post
+    if (window.instgrm) {
+        window.instgrm.Embeds.process();
+    }
+
+    postContainer.classList.add('open');
+    mainContainer.classList.add('shifted');
+}
+
+function hidePost() {
+    const postContainer = document.getElementById('post-container');
+    const mainContainer = document.querySelector('.container');
+    postContainer.classList.remove('open');
+    mainContainer.classList.remove('shifted');
+}
+
 async function initPromo() {
 // Initialize the promo banner close button
     const promoBanner = document.getElementById('promo-banner');
@@ -70,8 +103,11 @@ async function initPromo() {
 }
 
 // Load quote when page loads
-document.addEventListener('DOMContentLoaded', newQuote);
-document.addEventListener('DOMContentLoaded', initPromo);
+document.addEventListener('DOMContentLoaded', () => {
+    newQuote();
+    initPromo();
 
-// Add click handler to button
-document.getElementById('new-quote-btn').addEventListener('click', newQuote);
+    document.getElementById('new-quote-btn').addEventListener('click', newQuote);
+    document.getElementById('show-post-btn').addEventListener('click', showPost);
+    document.getElementById('close-post-btn').addEventListener('click', hidePost);
+});

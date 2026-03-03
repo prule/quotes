@@ -88,6 +88,11 @@ body {
     text-align: center;
     z-index: 10;
     position: relative;
+    transition: transform 0.3s ease;
+}
+
+.container.shifted {
+    transform: translateX(-200px);
 }
 
 .quote-wrapper {
@@ -247,6 +252,51 @@ body {
     background: rgba(255, 255, 255, 1);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.post-container {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: right 0.3s ease;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-container.open {
+    right: 0;
+}
+
+.close-post-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #4a5568;
+    transition: color 0.3s ease;
+}
+
+.close-post-btn:hover {
+    color: #2d3748;
+}
+
+.post-content {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .sparkles {
@@ -466,6 +516,11 @@ body {
         width: 60px;
         height: 60px;
     }
+
+    .post-container {
+        width: 100%;
+        right: -100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -542,6 +597,18 @@ body {
 
     .btn-secondary:hover {
         background: rgba(45, 55, 72, 1);
+    }
+
+    .post-container {
+        background: rgba(26, 32, 44, 0.95);
+    }
+
+    .close-post-btn {
+        color: #cbd5e0;
+    }
+
+    .close-post-btn:hover {
+        color: #e2e8f0;
     }
 }
 
