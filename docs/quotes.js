@@ -18,7 +18,6 @@ async function updateQuote(quote) {
     const quoteAuthor = document.getElementById('quote-author');
 
     if (quote) {
-        // Assuming quote has text and author properties
         quoteContainer.textContent = quote.quote;
         quoteAuthor.textContent = quote.author;
     } else {
@@ -27,38 +26,16 @@ async function updateQuote(quote) {
     }
 }
 
-function shareQuote() {
-    const quote = document.querySelector('.quote-text').textContent;
-    const author = document.querySelector('.quote-author').textContent;
-    const text = `"${quote}" - ${author}`;
-
-    if (navigator.share) {
-        navigator.share({
-            title: 'Inspirational Quote',
-            text: text
-        });
-    } else {
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Quote copied to clipboard!');
-        });
-    }
-}
-
 async function newQuote() {
-
-    const randomQuote = (await getQuote())
-
+    const randomQuote = await getQuote();
     const quoteElement = document.querySelector('.quote-text');
     const authorElement = document.querySelector('.quote-author');
 
-    // Fade out
     quoteElement.style.opacity = '0';
     authorElement.style.opacity = '0';
 
     setTimeout(() => {
         updateQuote(randomQuote);
-
-        // Fade in
         quoteElement.style.opacity = '1';
         authorElement.style.opacity = '1';
     }, 300);
@@ -70,14 +47,30 @@ async function showPost() {
     const postContainer = document.getElementById('post-container');
     const mainContainer = document.querySelector('.container');
 
-    postContent.innerHTML = `
-        <blockquote class="instagram-media" data-instgrm-permalink="${post.url}" data-instgrm-version="14"></blockquote>
-    `;
-
-    // This function is part of the Instagram embed script and will render the post
-    if (window.instgrm) {
-        window.instgrm.Embeds.process();
+    let embedUrl = post.url;
+    
+    // Format Instagram URLs for embedding
+    if (embedUrl.includes('instagram.com')) {
+        // Ensure trailing slash and add /embed/
+        if (!embedUrl.endsWith('/')) embedUrl += '/';
+        embedUrl += 'embed/';
+    } 
+    // Format YouTube Shorts URLs for embedding
+    else if (embedUrl.includes('youtube.com/shorts/')) {
+        embedUrl = embedUrl.replace('youtube.com/shorts/', 'youtube.com/embed/');
     }
+
+    postContent.innerHTML = `
+        <iframe 
+            src="${embedUrl}" 
+            width="320" 
+            height="580" 
+            frameborder="0" 
+            scrolling="no" 
+            allowtransparency="true" 
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+    `;
 
     postContainer.classList.add('open');
     mainContainer.classList.add('shifted');
@@ -86,12 +79,18 @@ async function showPost() {
 function hidePost() {
     const postContainer = document.getElementById('post-container');
     const mainContainer = document.querySelector('.container');
+    const postContent = document.getElementById('post-content');
+    
     postContainer.classList.remove('open');
     mainContainer.classList.remove('shifted');
+    
+    // Clear content to stop any playing videos
+    setTimeout(() => {
+        postContent.innerHTML = '';
+    }, 300);
 }
 
 async function initPromo() {
-// Initialize the promo banner close button
     const promoBanner = document.getElementById('promo-banner');
     const closePromoBtn = document.getElementById('close-promo-btn');
 
@@ -102,7 +101,6 @@ async function initPromo() {
     }
 }
 
-// Load quote when page loads
 document.addEventListener('DOMContentLoaded', () => {
     newQuote();
     initPromo();
