@@ -41,20 +41,53 @@ async function newQuote() {
     }, 300);
 }
 
+function getYouTubeEmbedUrl(url) {
+    let videoId = '';
+    const urlObj = new URL(url);
+
+    if (urlObj.hostname.includes('youtube.com')) {
+        if (urlObj.pathname.includes('/shorts/')) {
+            videoId = urlObj.pathname.split('/shorts/')[1].split('/')[0];
+        } else {
+            videoId = urlObj.searchParams.get('v');
+        }
+    } else if (urlObj.hostname.includes('youtu.be')) {
+        videoId = urlObj.pathname.slice(1);
+    }
+
+    // Use youtube-nocookie.com for better privacy and Safari compatibility
+    return videoId ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1` : null;
+}
+
 async function showPost() {
     const post = await getPost();
     const postContent = document.getElementById('post-content');
     const postContainer = document.getElementById('post-container');
     const mainContainer = document.querySelector('.container');
 
-    // Use the official Instagram blockquote method
-    postContent.innerHTML = `
-        <blockquote class="instagram-media" data-instgrm-permalink="${post.url}" data-instgrm-version="14"></blockquote>
-    `;
+    const embedUrl = getYouTubeEmbedUrl(post.url);
 
-    // Process the new embed
-    if (window.instgrm) {
-        window.instgrm.Embeds.process();
+    if (embedUrl) {
+        postContent.innerHTML = `
+            <iframe 
+                width="100%" 
+                height="580" 
+                src="${embedUrl}" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen
+                style="border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </iframe>
+        `;
+    } else {
+        // Fallback for Instagram if you keep some
+        postContent.innerHTML = `
+            <blockquote class="instagram-media" data-instgrm-permalink="${post.url}" data-instgrm-version="14">
+                <a href="${post.url}" target="_blank">View on Instagram</a>
+            </blockquote>
+        `;
+        if (window.instgrm) window.instgrm.Embeds.process();
     }
 
     postContainer.classList.add('open');
