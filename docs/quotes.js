@@ -47,31 +47,15 @@ async function showPost() {
     const postContainer = document.getElementById('post-container');
     const mainContainer = document.querySelector('.container');
 
-    let url = new URL(post.url);
-    let embedUrl = '';
-    
-    if (url.hostname.includes('instagram.com')) {
-        // Strip query params and ensure trailing slash
-        let cleanPath = url.pathname;
-        if (!cleanPath.endsWith('/')) cleanPath += '/';
-        embedUrl = `https://www.instagram.com${cleanPath}embed/`;
-    } else if (url.hostname.includes('youtube.com')) {
-        embedUrl = post.url.replace('youtube.com/shorts/', 'youtube.com/embed/');
-    } else {
-        embedUrl = post.url;
-    }
-
+    // Use the official Instagram blockquote method
     postContent.innerHTML = `
-        <iframe 
-            src="${embedUrl}" 
-            width="320" 
-            height="580" 
-            frameborder="0" 
-            scrolling="no" 
-            allowtransparency="true" 
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-        </iframe>
+        <blockquote class="instagram-media" data-instgrm-permalink="${post.url}" data-instgrm-version="14"></blockquote>
     `;
+
+    // Process the new embed
+    if (window.instgrm) {
+        window.instgrm.Embeds.process();
+    }
 
     postContainer.classList.add('open');
     mainContainer.classList.add('shifted');
