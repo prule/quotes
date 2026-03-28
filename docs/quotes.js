@@ -47,17 +47,18 @@ async function showPost() {
     const postContainer = document.getElementById('post-container');
     const mainContainer = document.querySelector('.container');
 
-    let embedUrl = post.url;
+    let url = new URL(post.url);
+    let embedUrl = '';
     
-    // Format Instagram URLs for embedding
-    if (embedUrl.includes('instagram.com')) {
-        // Ensure trailing slash and add /embed/
-        if (!embedUrl.endsWith('/')) embedUrl += '/';
-        embedUrl += 'embed/';
-    } 
-    // Format YouTube Shorts URLs for embedding
-    else if (embedUrl.includes('youtube.com/shorts/')) {
-        embedUrl = embedUrl.replace('youtube.com/shorts/', 'youtube.com/embed/');
+    if (url.hostname.includes('instagram.com')) {
+        // Strip query params and ensure trailing slash
+        let cleanPath = url.pathname;
+        if (!cleanPath.endsWith('/')) cleanPath += '/';
+        embedUrl = `https://www.instagram.com${cleanPath}embed/`;
+    } else if (url.hostname.includes('youtube.com')) {
+        embedUrl = post.url.replace('youtube.com/shorts/', 'youtube.com/embed/');
+    } else {
+        embedUrl = post.url;
     }
 
     postContent.innerHTML = `
@@ -84,7 +85,6 @@ function hidePost() {
     postContainer.classList.remove('open');
     mainContainer.classList.remove('shifted');
     
-    // Clear content to stop any playing videos
     setTimeout(() => {
         postContent.innerHTML = '';
     }, 300);
