@@ -1,4 +1,7 @@
 
+let stories = [];
+let currentStoryIndex = 0;
+
 async function getQuote() {
     const response = await fetch('quotes.json');
     const quotes = await response.json();
@@ -11,6 +14,42 @@ async function getPost() {
     const posts = await response.json();
     const randomIndex = Math.floor(Math.random() * posts.length);
     return posts[randomIndex];
+}
+
+async function loadStories() {
+    try {
+        const response = await fetch('stories.json');
+        stories = await response.json();
+        updateStoryUI();
+    } catch (e) {
+        console.error("Failed to load stories", e);
+    }
+}
+
+function updateStoryUI() {
+    const storyTitle = document.getElementById('story-title');
+    const storyLink = document.getElementById('story-link');
+    
+    if (stories.length > 0) {
+        const story = stories[currentStoryIndex];
+        storyTitle.textContent = story.title;
+        storyLink.href = story.url;
+    }
+}
+
+function nextStory(event) {
+    if (event) event.stopPropagation();
+    currentStoryIndex = (currentStoryIndex + 1) % stories.length;
+    updateStoryUI();
+}
+
+function toggleStoryPill(event) {
+    const pill = document.getElementById('story-pill');
+    // If the click is on the "Read More" link or "Next" button, don't toggle
+    if (event.target.closest('#story-link') || event.target.closest('#next-story-btn')) {
+        return;
+    }
+    pill.classList.toggle('expanded');
 }
 
 async function updateQuote(quote) {
@@ -121,8 +160,12 @@ async function initPromo() {
 document.addEventListener('DOMContentLoaded', () => {
     newQuote();
     initPromo();
+    loadStories();
 
     document.getElementById('new-quote-btn').addEventListener('click', newQuote);
     document.getElementById('show-post-btn').addEventListener('click', showPost);
     document.getElementById('close-post-btn').addEventListener('click', hidePost);
+    
+    document.getElementById('story-pill').addEventListener('click', toggleStoryPill);
+    document.getElementById('next-story-btn').addEventListener('click', nextStory);
 });
