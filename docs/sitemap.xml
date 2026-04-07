@@ -2,8 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.dailymotivationquotes.com/</loc>
-    <lastmod>2025-08-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.dailymotivationquotes.com/stories/rocky.html</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dailymotivationquotes.com/stories/steve-jobs.html</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dailymotivationquotes.com/stories/james-braddock.html</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.dailymotivationquotes.com/stories/wilma-rudolph.html</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
