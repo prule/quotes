@@ -902,3 +902,29 @@ body {
         left: 10px;
     }
 }
+
+/* Story Page Specific Styles */
+.story-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.share-btn {
+    background: rgba(102, 126, 234, 0.1);
+    border: none;
+    color: #667eea;
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.share-btn:hover {
+    background: rgba(102, 126, 234, 0.2);
+}
