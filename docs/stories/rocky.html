@@ -70,7 +70,6 @@
             color: #667eea;
             text-decoration: none;
             font-weight: 600;
-            margin-bottom: 2rem;
             transition: transform 0.2s;
         }
         .back-button:hover {
@@ -119,13 +118,23 @@
     <div class="background-gradient"></div>
 
     <div class="story-container">
-        <a href="../index.html" class="back-button">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            Back to Quotes
-        </a>
+        <header class="story-header">
+            <a href="../index.html" class="back-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Quotes
+            </a>
+            <button class="share-btn" onclick="shareStory()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                    <polyline points="16 6 12 2 8 6"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+                Share
+            </button>
+        </header>
 
         <h1>From Broke to Best Picture: Sylvester Stallone's Rocky Journey</h1>
 
@@ -194,5 +203,28 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        function shareStory() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: 'Check out this incredible motivational story!',
+                    url: window.location.href
+                }).then(() => {
+                    console.log('Thanks for sharing!');
+                }).catch(console.error);
+            } else {
+                // Fallback: Copy to clipboard
+                const el = document.createElement('textarea');
+                el.value = window.location.href;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('Link copied to clipboard!');
+            }
+        }
+    </script>
 </body>
 </html>
