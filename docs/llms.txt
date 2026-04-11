@@ -1,0 +1,26 @@
+# Daily Motivation Quotes
+
+> A curated collection of powerful motivational quotes and in-depth success stories of legendary figures who overcame immense adversity.
+
+## Key Features
+- **Daily Quotes**: Randomized motivational quotes from various thinkers and leaders.
+- **Success Stories**: Deep-dive articles into the lives of people who redefined the limits of human achievement.
+- **Interactive UI**: Clean, glassmorphic design optimized for focus and inspiration.
+
+## Motivational Stories
+- [Sylvester Stallone's Rocky Journey](https://www.dailymotivationquotes.com/stories/rocky.html): How a broke actor refused to sell his script unless he starred in it.
+- [Steve Jobs' Comeback](https://www.dailymotivationquotes.com/stories/steve-jobs.html): From being fired by Apple to revolutionizing the world with Pixar and returning to save Apple.
+- [The Cinderella Man: James J. Braddock](https://www.dailymotivationquotes.com/stories/james-braddock.html): A dockworker's rise from the Great Depression breadlines to world heavyweight champion.
+- [Wilma Rudolph](https://www.dailymotivationquotes.com/stories/wilma-rudolph.html): Paralyzed by polio as a child, she became the fastest woman on Earth.
+- [Ludwig van Beethoven](https://www.dailymotivationquotes.com/stories/beethoven.html): Composing his greatest masterpieces in complete silence after going deaf.
+- [Sara Blakely (Spanx)](https://www.dailymotivationquotes.com/stories/spanx.html): Building a billion-dollar empire from $5,000 and a simple idea.
+- [Niki Lauda](https://www.dailymotivationquotes.com/stories/niki-lauda.html): The most courageous comeback in sports history after a near-fatal F1 crash.
+- [Jan Koum (WhatsApp)](https://www.dailymotivationquotes.com/stories/whatsapp.html): From standing in food stamp lines to a $19 billion acquisition.
+- [Andre Agassi](https://www.dailymotivationquotes.com/stories/andre-agassi.html): Reclaiming his life and tennis career after hitting rock bottom.
+- [Robert Downey Jr.](https://www.dailymotivationquotes.com/stories/robert-downey-jr.html): A remarkable journey of redemption from prison to "Iron Man."
+
+## Technical Stack
+- Vanilla HTML/CSS/JS
+- JSON-driven data for quotes and stories
+- GitHub Pages hosting
+- Native Web Share API integration
